@@ -64,7 +64,7 @@ $array = $query->select("a.id as aid,a.name as aname,a.s_name,a.gender  ,z.name 
             </tr>
         <?php
 
-
+die();
         }
         ?>
     </tbody>

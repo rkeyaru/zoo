@@ -64,6 +64,7 @@ use yii\helpers\Html;
             </tr>
         <?php
         }
+        die();
         ?>
     </tbody>
 </table>

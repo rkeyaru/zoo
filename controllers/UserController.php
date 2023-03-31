@@ -60,16 +60,7 @@ use app\models\Zoo;
             return $this->redirect('index');
         }
  
-        
-        // if($this->request->isPost) { 
-        //     $array = $this->request->post();
-        //     $model->load($array);
-        //     if($model->validate()) { 
-        //         $model->save();
-        //         return $this->redirect(['user/index']);
-        //     }
-        //     return "Failure in creating user";
-        //     }
+      
 
         $model  = Users::find()->where(['userId' => $id])->one();
         return $this->render('edit',['model' => $model]);

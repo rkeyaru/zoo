@@ -47,22 +47,17 @@ use yii\helpers\Html;
                 <td>
                     <?= $val->password ?>
                 </td>
-                <td>
-                    <!-- <a href="edit?id=<?= $val->userId ?>"  class="btn btn-warning btn-sm" onclick="" > -->
-        
-                    </a>
-                    <a href="edit?id=<?= $val->userId ?>" class="btn btn-warning btn-sm">
-                        Edit
-                    </a>
-                    <a href="delete?id=<?= $val->userId ?>" class="btn btn-danger btn-sm">
-                        Delete
-                    </a>
-                    
+             
+               
+                    <td>
+                    <?= Html::a("Edit", ['edit', 'id' => $val->userId], ['class' => 'btn btn-sm btn-warning']) ?>
+                    <?= Html::a("Delete", ['delete','id' => $val->userId], ['class' => 'btn btn-sm btn-danger']) ?> 
                 </td>
+           
             </tr>
         <?php
         }
-
+die();
         ?>
     </tbody>
 </table>
