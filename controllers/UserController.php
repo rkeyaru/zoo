@@ -1,68 +1,99 @@
 <?php
- namespace app\controllers;
- use app\models\Users;
- use yii\db\Query;
- use yii\web\Controller;
+
+namespace app\controllers;
+use Yii;
+use app\models\Users;
+use yii\db\Query;
+use yii\web\Controller;
 use linslin\yii2\curl;
 
 use app\models\Zoo;
- 
- class UserController extends Controller { 
-    public function actionIndex() { 
+
+class UserController extends SessionController
+{
+    // public function beforeAction($action)
+    // {
+       
+    //     if(parent::GetSession()) { 
+    //         return true;
+    //      }
+    //      return $this->redirect("site/index");
+       
+    // }
+    public function init()
+    {
+        parent::init();
+    }
+    public function actionIndex()
+    {
+
+        
         $model = new Users();
         $array = Users::find()->where(['active' => '1'])->all();
-        return $this->render('index',['array' => $array]);
+        return $this->renderAjax('index', ['array' => $array, 'model' => $model]);
     }
-    public function actionDelete($id) { 
-        
-            
-         
-          
-            $query = new Query();
-            $query->createCommand()->update("users", ['active' => 0] ,['userId' => $id] )->execute();
-            
-            
-            $array = Users::find()->where(['active' => '1'])->all();
-           return $this->render('index',['array' => $array]);
-            
-        
+    public function actionDelete()
+    {
 
-        
+
+
+
+        $id = $this->request->post("id");
+
+
+        $query = new Query();
+        $query->createCommand()->update("users", ['active' => '0'], ['userId' => $id])->execute();
+        return "user deleted successfully";
     }
-    public function actionCreate() { 
-        
-        $model  = new Users();
 
-            
-        if($this->request->isPost) { 
+
+
+
+
+
+
+
+    public function actionCount()
+    {
+        $val = Users::find()->where(['active' => '1'])->count();
+        return "User count:" . $val;
+    }
+    public function actionCreate()
+    {
+        $model = new Users();
+        if ($this->request->isPost) {
             $array = $this->request->post();
             $model->load($array);
-            if($model->validate()) { 
-                $model->save();
-                return $this->redirect(['user/index']);
-            }
-            return "Failure in creating user";
-            }
-
-        
-        return $this->render('create',['model' => $model]);
-    }
-    public function actionEdit($id) { 
-        
-        if($this->request->isPost) { 
-            $array = $this->request->post();
-            $user  = $array['Users'];
-
-            
-          $query = new Query();
-           $query->createCommand()->update("users", ['firstName' => $user['firstName'],'lastName' => $user['lastName'],'email' => $user['email'],'password' => $user['password']],['userId' => $id] )->execute();
-            
-            return $this->redirect('index');
+            $hash = $hash = Yii::$app->getSecurity()->generatePasswordHash($array["Users"]["password"]);
+            $model->password = $hash;
+            $model->save();
+            return "User Added successfully";
         }
- 
-      
 
-        $model  = Users::find()->where(['userId' => $id])->one();
-        return $this->render('edit',['model' => $model]);
+        return $this->renderAjax("_form", ['model' => $model]);
     }
- }
+    public function actionEdit($id)
+    {
+        $model  = Users::find()->where(['userId' => $id])->one();
+
+        if ($this->request->isPost) {
+            $array = $this->request->post();
+            $hash = $hash = Yii::$app->getSecurity()->generatePasswordHash($array["Users"]["password"]);
+       
+
+            $model->load($array);
+            $model->password = $hash;
+            $model->save();
+
+
+
+
+            return "Updated successfully";
+        }
+
+
+
+
+        return $this->renderAjax('_editform', ['model' => $model]);
+    }
+}

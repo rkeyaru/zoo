@@ -1,30 +1,33 @@
-function showUsers() {
-    $.ajax({
-        url: "/zoo/user/index",
-        type: 'GET',
-        dataType: 'html', // added data type
-        success: function(res) {
-           document.getElementById("data").innerHTML  =res;
-        }
-    });
-  }
-  function showZoos() {
-    $.ajax({
-        url: "/zoo/animal/index",
-        type: 'GET',
-        dataType: 'html', // added data type
-        success: function(res) {
-           document.getElementById("data").innerHTML  =res;
-        }
-    });
-  }
-  function showAnimals() {
-    $.ajax({
-        url: "/zoo/zoo/index",
-        type: 'GET',
-        dataType: 'html', // added data type
-        success: function(res) {
-           document.getElementById("data").innerHTML  =res;
-        }
-    });
-  }
+function signUp() {
+  $("#signup").submit(function (e) {
+    e.preventDefault();
+  });
+
+  var form = $("#signup");
+
+  $.ajax({
+    type: "POST",
+    url: "/zoo/site/signup",
+    data: form.serialize(),
+    success: function (data) {
+      alert(data);
+      $("#signup")[0].reset();
+    },
+  });
+}
+function authUser() {
+  $("#login").submit(function (e) {
+    e.preventDefault();
+  });
+
+  var form = $("#login");
+
+  $.ajax({
+    type: "POST",
+    url: "/zoo/site/login",
+    data: form.serialize(),
+    success: function (data) {
+      alert(data);
+    },
+  });
+}

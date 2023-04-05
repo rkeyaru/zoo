@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use app\models\Zoo;
 use yii\db\Query;
@@ -9,14 +9,37 @@ use yii\helpers\Html;
 
 
 ?>
-<p>
-    <?= Html::a('Add Zoo', ['create'], ['class' => 'btn btn-success']) ?>
-</p>
-<table class="table table-striped">
+ 
+<button type="button" class="btn btn-sm  btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="showZooCreate()">
+    <i class="fa-regular fa-plus"></i> Add Zoo
+</button><br><br>
+ 
+<div class="modal  fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  ">
+        <div class="modal-content">
+            <div class="modal-header  bg-dark">
+                <h5 class="modal-title  text-light" id="exampleModalLabel"> Zoo </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="wrapper" id="modalform">
+                    
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<table class="table text-center table-bordered">
     <thead>
         <tr>
             <th>
-                ID
+                S.No
             </th>
             <th>
                 Name
@@ -28,7 +51,7 @@ use yii\helpers\Html;
                 City
             </th>
             <th>
-                area
+                Area 
             </th>
             <th>
                 Operation
@@ -37,11 +60,15 @@ use yii\helpers\Html;
     </thead>
     <tbody>
         <?php
+        
+        $count =1;
         foreach ($array as $val) {
         ?>
             <tr>
                 <td>
-                    <?= $val->id ?> 
+                    <?php  echo $count;
+                    $count += 1;
+                     ?> 
                 </td>
                 <td>
                 <?= $val->name ?> 
@@ -58,8 +85,8 @@ use yii\helpers\Html;
 
                 </td>
                 <td>
-                    <?= Html::a("Edit",['edit','id' => $val->id],['class' => 'btn btn-sm btn-warning']) ?>
-                    <?= Html::a("Delete",['delete','id' => $val->id],['class' => 'btn btn-sm btn-danger']) ?>
+                <?= Html::button("<i class='bi bi-pen'></i>",['onclick' => 'editZoo(this.id)','class' => 'btn btn-warning btn-sm' ,'id' => "edit".$val->id]) ?>
+                    <?= Html::button("<i class='bi bi-trash'></i>",['onclick' => 'deleteZoo(this.id)','class' => 'btn btn-danger btn-sm' ,'id' => "delete".$val->id]) ?>
                 </td>
             </tr>
         <?php

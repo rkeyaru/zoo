@@ -21,8 +21,14 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/style.css',
+        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css'
     ];
     public $js = [
+        'js/main.js',
+        'js/user.js',
+        'js/animal.js',
+        'js/zoo.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

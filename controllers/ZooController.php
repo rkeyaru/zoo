@@ -5,24 +5,40 @@ namespace app\controllers;
 use yii\web\Controller;
 use app\models\Zoo;
 use yii\db\Query;
+use Yii;
 
 
 
-class ZooController extends Controller
+class ZooController extends SessionController
 {
+    public function init()
+    {
+        parent::init();
+    }
+
+
+
     public function actionIndex()
     {
-        
+        if (!isset(Yii::$app->session['username'])) {
+            return $this->redirect('/zoo/site/index');
+        }
         $array = Zoo::find()->where(['active' => '1'])->all();
-        return $this->render('index',['array' => $array]);
+
+        return $this->renderAjax('index', ['array' => $array]);
     }
-    public function actionDelete($id)
+    public function actionCount()
     {
-        
+        $val = Zoo::find()->where(['active' => '1'])->count();
+        return "Zoo count:" . $val;
+    }
+    public function actionDelete()
+    {
+        $id = $this->request->post('id');
+
         $query = new Query();
-        $query->createCommand()->update("zoo", ['active' => 0], ['id' => $id])->execute();
+        $query->createCommand()->update("zoo", ['active' => '0'], ['id' => $id])->execute();
         $array = Zoo::find()->where(['active' => '1'])->all();
-        return $this->render('index',['array' => $array]);
     }
     public function actionCreate()
     {
@@ -30,33 +46,32 @@ class ZooController extends Controller
 
 
         if ($this->request->isPost) {
+
             $array = $this->request->post();
+
             $model->load($array);
-            if ($model->validate()) {
-                $model->save();
-                return $this->redirect(['index']);
-            }
-            return "Failure in creating user"; 
+            $model->save();
+            return "zoo added successfully";
         }
 
 
-        return $this->render('create');
+        return $this->renderAjax('_form', ["model" => $model]);
     }
-   
+
     public function actionEdit($id)
     {
-        $model  = new Zoo();
+        $model = Zoo::find($id)->where(['id' => $id])->one();
 
 
         if ($this->request->isPost) {
-            $user = $this->request->post("Zoo");
-            $query = new Query();
-            $query->createCommand()->update("zoo", ['name' => $user['name'],'state' => $user['state'],'city' => $user['city'],'area' => $user['area']],['id' => $id] )->execute();
-            return $this->redirect(['index']);
+            $array = $this->request->post();
+            $model->load($array);
+            $model->save();
+            return "zoo updated successfully";
         }
 
-        $model = Zoo::find($id)->where(['id' => $id])->one();
-        
-        return $this->render('edit', ['model' => $model]); 
+
+
+        return $this->renderAjax('_editform', ['model' => $model]);
     }
 }

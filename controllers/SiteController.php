@@ -10,11 +10,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Users;
-use linslin\yii2\curl;
-use yii\bootstrap5\Html;
-use yii\console\widgets\Table;
+use app\models\Zoo;
+use app\models\Animals;
 
-use yii\widgets\DetailView;
+
 
 
 
@@ -23,33 +22,12 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-  
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+
 
     /**
      * {@inheritdoc}
      */
+
     public function actions()
     {
         return [
@@ -73,65 +51,74 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
+ 
     public function actionLogin()
     {
-     
+
+        if (isset(Yii::$app->session['username'])) {
+            return $this->redirect("index");
+        }
 
         $model = new Users();
-        if($this->request->isPost) { 
-            
-            $user  = $this->request->post('Users');
-            
-            echo $user['email']."<br>";
-            echo $user['password']."<br>";
-            $id = Users::findOne(['email' => $user['email']]);
-            if($id->validatePassword($user['password'])) { 
-                echo "Password Matched";
-            } else { 
-                echo "Invalid Password";
-            }
-            
-            $this->redirect('/zoo/user/index'); 
+        if ($this->request->isPost) {
 
+            $user  = $this->request->post('Users');
+           
+           
+            $id = Users::findOne(['email' => $user['email']]);
+
+
+            if (!isset($id)) {
+                return "Wrong email or password.";
+            }
+
+           
+            if ($id->validatePassword($user['password'])) {
+             
+                Yii::$app->session['username'] = $user['email'];
+                $this->redirect('about');
+            } else {
+                return "Wrong Password or email";
+            }
         }
-        return $this->render("login",["model" => $model]);
+        return $this->render("login", ["model" => $model]);
     }
 
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
+   
     public function actionLogout()
     {
-        Yii::$app->user->logout();
 
-        return $this->goHome();
+        $session = Yii::$app->session;
+        $session->remove('username');
+        $session->destroy();
+        return $this->redirect("index");
     }
-    public function actionSignup() { 
-        $model = new Users();
-        if($this->request->isPost) { 
-            $val = $this->request->post();
-            $model->load($val);
-    
-            if($model->validate()) {
-            $model->save();
-            $this->redirect("/user/index");
-            
+    public function actionSignup()
+    {
+        if (isset(Yii::$app->session['username'])) {
+            return $this->redirect("index");
         }
+        $model = new Users();
+        if ($this->request->isPost) {
+            $val = $this->request->post();
+
+            $model->load($val);
+            $password = $val["Users"]["password"];
+            $hash = Yii::$app->getSecurity()->generatePasswordHash($password);
+            $model->password = $hash;
+
+            if ($model->validate()) {
+                $model->save();
+
+                return "User registered successfully";
+            } else {
+
+                return "Email already exists";
+            }
         }
         return $this->render('signup', ['model' => $model]);
     }
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
+     
     public function actionContact()
     {
         $model = new ContactForm();
@@ -145,14 +132,15 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout() { 
-        return $this->render('about');
+  
+    public function actionAbout()
+    {
+        if (! isset(Yii::$app->session['username'])) {
+            return $this->redirect("error");
+        }
+        $userCount = Users::find()->where(['active' => '1'])->count();
+        $zooCount = Zoo::find()->where(['active' => '1'])->count();
+        $animalCount = Animals::find()->where(['active' => '1'])->count();
+        return $this->render('about', ['userCount' => $userCount, 'animalCount' => $animalCount, 'zooCount' => $zooCount]);
     }
-    
-    
 }

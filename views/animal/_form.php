@@ -6,10 +6,10 @@ use yii\helpers\Html;
 use app\models\Zoo;
 use yii\helpers\ArrayHelper;
 
-$form = ActiveForm::begin(["id" => 'signup']);
-$model = new Animals();
-$zoo = new Zoo();
-$items = ArrayHelper::map(Zoo::find()->where(['active' => '1'] )->all(), 'id', 'name');
+$form = ActiveForm::begin(["id" => 'animaladd']);
+
+
+
  
 
 
@@ -18,7 +18,10 @@ $items = ArrayHelper::map(Zoo::find()->where(['active' => '1'] )->all(), 'id', '
     Add Animal
 </h2>
 <?= $form->field($model, "name"); ?>
-<?= $form->field($model, "gender"); ?>
+<?= 
+
+$form->field($model, "gender")->radioList(['Male' =>"Male", 'Female' =>"Female"]); 
+?>
 <?= $form->field($model, "s_name")->label("Scientific Name"); ?>
 <?= $form->field($zoo, "id")->label("Zoo Name")->dropDownList($items) ?>
 
@@ -26,7 +29,7 @@ $items = ArrayHelper::map(Zoo::find()->where(['active' => '1'] )->all(), 'id', '
 
 
 <div class="form-group">
-  <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+  <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button' ,'onclick' => 'addAnimal()']) ?>
 </div>
 
 <?php ActiveForm::end();
