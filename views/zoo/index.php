@@ -11,7 +11,7 @@ use yii\helpers\Html;
 ?>
  
 <button type="button" class="btn btn-sm  btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="showZooCreate()">
-    <i class="fa-regular fa-plus"></i> Add Zoo
+<i class="bi bi-plus" style="font-size:20px;"></i>Add Zoo
 </button><br><br>
  
 <div class="modal  fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

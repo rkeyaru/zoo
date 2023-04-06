@@ -12,7 +12,7 @@ $this->registerJsFile("@web/js/main.js");
 
 
 <button type="button" class="btn btn-sm  btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="showUserCreate()">
-    <i class="fa-regular fa-plus"></i> New User
+<i class="bi bi-plus" style="font-size:20px;"></i>Add User
 </button><br><br>
 <div class="modal  fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">

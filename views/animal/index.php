@@ -13,7 +13,7 @@ $array = $query->select("a.id as aid,a.name as aname,a.s_name,a.gender  ,z.name 
 
 
 <button type="button" class="btn btn-sm  btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="showAnimalCreate()">
-    <i class="fa-regular fa-plus"></i> Add Animal
+ <i class="bi bi-plus" style="font-size:20px;"></i> Add Animal
 </button><br><br>
 <div class="modal  fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
