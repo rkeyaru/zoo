@@ -46,7 +46,7 @@ $array = $query->select("a.id as aid,a.name as aname,a.s_name,a.gender  ,z.name 
                 Animal Name
             </th>
             <th>
-                gender
+                Gender
             </th>
             <th>
                 Scientific Name

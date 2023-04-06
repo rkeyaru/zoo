@@ -18,7 +18,7 @@ class SessionController extends Controller
     if($this->GetSession()) { 
       return true;
     }
-    return $this->redirect("/zoo/site/index");
+    return $this->redirect("/zoo/site/error");
   }
   public function SetSession($username) { 
     $session  = Yii::$app->session;

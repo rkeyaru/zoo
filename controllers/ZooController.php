@@ -21,7 +21,7 @@ class ZooController extends SessionController
     public function actionIndex()
     {
         if (!isset(Yii::$app->session['username'])) {
-            return $this->redirect('/zoo/site/index');
+            return $this->redirect('/zoo/site/error');
         }
         $array = Zoo::find()->where(['active' => '1'])->all();
 
