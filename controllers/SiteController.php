@@ -139,10 +139,10 @@ class SiteController extends Controller
     public function actionDashboard()
     {
         if (! isset(Yii::$app->session['username'])) {
-            return $this->redirect("/zoo/site/login");
+            return $this->redirect("/Project/site/login");
         }
         if(Yii::$app->session['role'] != 'admin') { 
-          return $this->redirect("/zoo/site/index");
+          return $this->redirect("/Project/site/index");
         }
         $userCount = Users::find()->where(['active' => '1'])->count();
         $zooCount = Zoo::find()->where(['active' => '1'])->count();

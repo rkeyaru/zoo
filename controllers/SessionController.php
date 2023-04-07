@@ -16,9 +16,9 @@ class SessionController extends Controller
   public function init() { 
     parent::init();
     if($this->GetSession()) { 
-      return true;
+        return true;  
     }
-    return $this->redirect("/zoo/site/error");
+    return $this->redirect(["/site/login"]);
   }
  
   public function DestroySession() { 
@@ -26,7 +26,6 @@ class SessionController extends Controller
     $session->remove('username');
     $session->remove('role');
     $session->destroy();
-    
  
   } 
   public function GetSession() { 

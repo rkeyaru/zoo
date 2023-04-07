@@ -1,7 +1,7 @@
 function showUsers() {
   $.ajax({
     type: "GET",
-    url: "/zoo/user",
+    url: "/Project/user",
 
     dataType: "html",
     success: function (response) {
@@ -16,7 +16,7 @@ function deleteUser(id) {
   if(ok) {
   $.ajax({
     type: "POST",
-    url: "/zoo/user/delete",
+    url: "/Project/user/delete",
     data: {
       id: id.slice(6),
     },
@@ -38,7 +38,7 @@ function addUser() {
 
   $.ajax({
     type: "POST",
-    url: "/zoo/user/create",
+    url: "/Project/user/create",
     data: form.serialize(), // serializes the form's elements.
     success: function (data) {
       alert(data); // show response from the php script.
@@ -53,7 +53,7 @@ function showUserCreate() {
   $(".modal-title").html("Add User");
   $.ajax({
     type: "GET",
-    url: "/zoo/user/create",
+    url: "/Project/user/create",
     dataType: "html",
     success: function (response) {
       $("#modalform").html(response);
@@ -68,7 +68,7 @@ function editUser(id) {
     data: {
       id: id.slice(4),
     },
-    url: "/zoo/user/edit",
+    url: "/Project/user/edit",
     dataType: "html",
     success: function (response) {
       $("#modalform").html(response);
@@ -97,7 +97,7 @@ function updateUser(id) {
   }
   $.ajax({
     type: "POST",
-    url: "/zoo/user/edit?id=" + id,
+    url: "/Project/user/edit?id=" + id,
     data: values, // serializes the form's elements.
     success: function (data) {
       alert(data); // show response from the php script.
@@ -110,7 +110,7 @@ function updateUser(id) {
 function getUserCount() {
   $.ajax({
     type: "GET",
-    url: "/zoo/user/count",
+    url: "/Project/user/count",
     dataType: "html",
     success: function (response) {
       $("#userCount").html(response);

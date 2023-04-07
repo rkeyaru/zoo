@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use yii\web\Controller;
+
 use app\models\Zoo;
 use yii\db\Query;
 use Yii;
@@ -11,15 +11,17 @@ use Yii;
 
 class ZooController extends SessionController
 {
-  
+    public function init()
+    {
+        parent::init();
+    }
     public function actionIndex()
     {
-        if (! parent::GetSession()) {
-            return $this->redirect('/zoo/site/error');
+        if(! parent::GetSession()){ 
+            return $this->redirect("site/login");
         }
-        
         $array = Zoo::find()->where(['active' => '1'])->all();
-
+        
         return $this->renderAjax('index', ['array' => $array]);
     }
     public function actionCount()

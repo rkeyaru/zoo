@@ -3,7 +3,7 @@
 
 use app\models\Animals;
 use app\models\AnimalZooMap;
-use yii\web\Controller;
+ 
 use app\models\Zoo;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;

@@ -5,10 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Users;
 use yii\db\Query;
-use yii\web\Controller;
-use linslin\yii2\curl;
-
-use app\models\Zoo;
+ 
 
 class UserController extends SessionController
 {
@@ -24,6 +21,7 @@ class UserController extends SessionController
     public function init()
     {
         parent::init();
+       
     }
     public function actionIndex()
     {

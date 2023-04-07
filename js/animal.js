@@ -1,7 +1,7 @@
 function showAnimals() {
   $.ajax({
     type: "GET",
-    url: "/zoo/animal",
+    url: "/Project/animal",
     dataType: "html",
     success: function (response) {
       $("#data").html(response);
@@ -15,7 +15,7 @@ function deleteAnimal(id) {
   if(ok) {
   $.ajax({
     type: "POST",
-    url: "/zoo/animal/delete",
+    url: "/Project/animal/delete",
     data: {
       id: id.slice(6),
     },
@@ -37,7 +37,7 @@ function addAnimal() {
 
   $.ajax({
     type: "POST",
-    url: "/zoo/animal/create",
+    url: "/Project/animal/create",
     data: form.serialize(), // serializes the form's elements.
     success: function (data) {
       $("#exampleModal").modal("hide");
@@ -50,7 +50,7 @@ function showAnimalCreate() {
   $('.modal-title').html("Add Animal");
   $.ajax({
     type: "GET",
-    url: "/zoo/animal/create",
+    url: "/Project/animal/create",
     dataType: "html",
     success: function (response) {
       $("#modalform").html(response);
@@ -65,7 +65,7 @@ function editAnimal(id) {
     data: {
       id: id.slice(4),
     },
-    url: "/zoo/animal/edit",
+    url: "/Project/animal/edit",
     dataType: "html",
     success: function (response) {
       $("#modalform").html(response);
@@ -83,7 +83,7 @@ function updateAnimal(id) {
 
   $.ajax({
     type: "POST",
-    url: "/zoo/animal/edit?id=" + id,
+    url: "/Project/animal/edit?id=" + id,
     data: form.serialize(), // serializes the form's elements.
     success: function (data) {
       $("#exampleModal").modal("hide");
@@ -97,7 +97,7 @@ function updateAnimal(id) {
 function getAnimalCount() {
   $.ajax({
     type: "GET",
-    url: "/zoo/animal/count",
+    url: "/Project/animal/count",
     dataType: "html",
     success: function (response) {
       $("#animalCount").html(response);

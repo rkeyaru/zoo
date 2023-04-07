@@ -20,7 +20,7 @@ function signUp() {
   }
   $.ajax({
     type: "POST",
-    url: "/zoo/site/signup",
+    url: "/Project/site/signup",
     data: values,
     success: function (data) {
       alert(data);
@@ -37,7 +37,7 @@ function authUser() {
 
   $.ajax({
     type: "POST",
-    url: "/zoo/site/login",
+    url: "/Project/site/login",
     data: form.serialize(),
     success: function (data) {
       alert(data);
@@ -54,7 +54,7 @@ function authStaff() {
 
   $.ajax({
     type: "POST",
-    url: "/zoo/site/staff-login",
+    url: "/Project/site/staff-login",
     data: form.serialize(),
     success: function (data) {
       alert(data);
