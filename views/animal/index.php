@@ -84,7 +84,7 @@ $array = $query->select("a.id as aid,a.name as aname,a.s_name,a.gender  ,z.name 
                     <?= $val['zname'] ?>
                 </td>
                 <td>
-                <?= Html::button("<i class='bi bi-pen'></i>", ['onclick' => 'editAnimal(this.id)', 'class' => 'btn btn-warning btn-sm', 'id' => "edit" . $val['aid']]) ?>
+                <?= Html::button("<i class='fas fa-edit' style='color: #1f512e;'></i>", ['onclick' => 'editAnimal(this.id)', 'class' => 'btn btn-warning btn-sm', 'id' => "edit" . $val['aid']]) ?>
                     <?= Html::button("<i class='bi bi-trash'></i>", ['onclick' => 'deleteAnimal(this.id)', 'class' => 'btn btn-danger btn-sm', 'id' => "delete" . $val['aid']]) ?>
                 </td>
             </tr>

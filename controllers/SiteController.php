@@ -139,7 +139,7 @@ class SiteController extends Controller
     public function actionDashboard()
     {
         if (! isset(Yii::$app->session['username'])) {
-            return $this->redirect("error");
+            return $this->redirect("/zoo/site/login");
         }
         if(Yii::$app->session['role'] != 'admin') { 
           return $this->redirect("/zoo/site/index");

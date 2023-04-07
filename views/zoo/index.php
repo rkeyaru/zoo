@@ -85,7 +85,7 @@ use yii\helpers\Html;
 
                 </td>
                 <td>
-                <?= Html::button("<i class='bi bi-pen'></i>",['onclick' => 'editZoo(this.id)','class' => 'btn btn-warning btn-sm' ,'id' => "edit".$val->id]) ?>
+                <?= Html::button("<i class='fas fa-edit' style='color: #1f512e;'></i>",['onclick' => 'editZoo(this.id)','class' => 'btn btn-warning btn-sm' ,'id' => "edit".$val->id]) ?>
                     <?= Html::button("<i class='bi bi-trash'></i>",['onclick' => 'deleteZoo(this.id)','class' => 'btn btn-danger btn-sm' ,'id' => "delete".$val->id]) ?>
                 </td>
             </tr>

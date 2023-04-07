@@ -79,7 +79,7 @@ $this->registerJsFile("@web/js/main.js");
            
 
                 <td>
-                <?= Html::button("<i class='bi bi-pen'></i>", ['onclick' => 'editUser(this.id)', 'class' => 'btn btn-warning btn-sm ', 'id' => "edit" . Html::encode($val->userId)]) ?>
+                <?= Html::button("<i class='fas fa-edit' style='color: #1f512e;'></i>", ['onclick' => 'editUser(this.id)', 'class' => 'btn btn-warning btn-sm ', 'id' => "edit" . Html::encode($val->userId)]) ?>
 
                     <?= Html::button("<i class='bi bi-trash'></i>", ['onclick' => 'deleteUser(this.id)', 'class' => 'btn btn-danger btn-sm', 'id' => "delete" . $val->userId]) ?>
                 </td>

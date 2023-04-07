@@ -18,7 +18,7 @@ $form->field($model, "gender")->radioList(['Male' =>"Male", 'Female' =>"Female"]
 
 ?>
 <?= 
-$form->field($model,"s_name")
+$form->field($model,"s_name")->label("Scientific Name")
 
  ?>
 <?= $form->field(new Zoo(), "id")->label("Zoo Name")->dropDownList($items,['options' => [$current => ['Selected' => true]]]) ?>
