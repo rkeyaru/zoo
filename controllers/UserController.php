@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+
 use Yii;
 use app\models\Users;
 use yii\db\Query;
@@ -13,12 +14,12 @@ class UserController extends SessionController
 {
     // public function beforeAction($action)
     // {
-       
+
     //     if(parent::GetSession()) { 
     //         return true;
     //      }
     //      return $this->redirect("site/index");
-       
+
     // }
     public function init()
     {
@@ -27,7 +28,7 @@ class UserController extends SessionController
     public function actionIndex()
     {
 
-        
+
         $model = new Users();
         $array = Users::find()->where(['active' => '1'])->all();
         return $this->renderAjax('index', ['array' => $array, 'model' => $model]);
@@ -70,7 +71,7 @@ class UserController extends SessionController
             return "User Added successfully";
         }
 
-        return $this->renderAjax("_form", ['model' => $model]);
+        return $this->renderAjax("create-form", ['model' => $model]);
     }
     public function actionEdit($id)
     {
@@ -79,21 +80,20 @@ class UserController extends SessionController
         if ($this->request->isPost) {
             $array = $this->request->post();
             $hash = $hash = Yii::$app->getSecurity()->generatePasswordHash($array["Users"]["password"]);
-       
 
+            
             $model->load($array);
+
             $model->password = $hash;
-            $model->save();
-
-
-
-
-            return "Updated successfully";
+            if ($model->save()) {
+                return "Updated successfully";
+            }
+            return "user not updated";
         }
 
 
 
 
-        return $this->renderAjax('_editform', ['model' => $model]);
+        return $this->renderAjax('edit-form', ['model' => $model]);
     }
 }

@@ -9,9 +9,7 @@ $form = ActiveForm::begin(['id'  => 'zooedit']);
 
 
 ?>
-<h2 class="mt-3 text-center dispaly-3">
-    Edit Zoo
-</h2>
+ 
 <?= $form->field($model, "name"); ?>
 <?= $form->field($model, "state"); ?>
 <?= $form->field($model, "city"); ?>

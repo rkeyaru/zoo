@@ -44,9 +44,7 @@ use yii\helpers\ArrayHelper;
             $array = $this->request->post('Animals');
             $zoo_id = $this->request->post('Zoo');
             $zoo_id = $zoo_id['id'];
-            
-            $model->load($array);
-
+      
             $model->name  = $array['name'];
             $model->s_name  = $array['s_name'];
             $model->gender = $array['gender'];
@@ -65,9 +63,9 @@ use yii\helpers\ArrayHelper;
 
             
             
-            return "Zoo Added Successfully";   
+            return "Animal Added Successfully";   
             }
-        return $this->renderAjax("_form",['model' => $model,'items' =>$items,'zoo' =>$zoo]);
+        return $this->renderAjax("create-form",['model' => $model,'items' =>$items,'zoo' =>$zoo]);
         
         
     }
@@ -92,7 +90,7 @@ use yii\helpers\ArrayHelper;
         
         
         
-        return $this->renderAjax('_editform',['model' => $model,'zoos' => $zoos,'current' => $current_zoo]);
+        return $this->renderAjax('edit-form',['model' => $model,'zoos' => $zoos,'current' => $current_zoo]);
 
     }
 

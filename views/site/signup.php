@@ -12,6 +12,7 @@
 
 
   ?>
+  
   <h2 class="mt-3 text-center dispaly-3">Sign up</h2>
   <?= $form->field($model, "firstName"); ?>
   <?= $form->field($model, "lastName"); ?>
@@ -23,3 +24,4 @@
 
   <?php ActiveForm::end();
   ?>
+    

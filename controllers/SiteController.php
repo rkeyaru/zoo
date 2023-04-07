@@ -56,6 +56,9 @@ class SiteController extends Controller
     {
 
         if (isset(Yii::$app->session['username'])) {
+            if(Yii::$app->session['role'] == 'admin') { 
+                return $this->redirect("dashboard");
+            }
             return $this->redirect("index");
         }
 
@@ -72,12 +75,14 @@ class SiteController extends Controller
                 return "Wrong email or password.";
             }
 
-           
+       
             if ($id->validatePassword($user['password'])) {
              
                 Yii::$app->session['username'] = $user['email'];
-                $this->redirect('about');
-            } else {
+                Yii::$app->session['role']  = $id->role;
+                $this->redirect('dashboard');
+            } 
+            else {
                 return "Wrong Password or email";
             }
         }
@@ -90,8 +95,10 @@ class SiteController extends Controller
 
         $session = Yii::$app->session;
         $session->remove('username');
+        $session->remove('role');
         $session->destroy();
         return $this->redirect("index");
+
     }
     public function actionSignup()
     {
@@ -101,46 +108,57 @@ class SiteController extends Controller
         $model = new Users();
         if ($this->request->isPost) {
             $val = $this->request->post();
-
+            $temp = Users::find()->where(['email' => $val['Users']['email']])->one();
             $model->load($val);
             $password = $val["Users"]["password"];
+            foreach($val['Users'] as $i) { 
+                if(trim($i) == "") {
+                return "Fill all entities";
+                }
+            }
             $hash = Yii::$app->getSecurity()->generatePasswordHash($password);
             $model->password = $hash;
-
+            if($temp) { 
+               return "Email already exists" ;
+            }
             if ($model->validate()) {
                 $model->save();
 
                 return "User registered successfully";
-            } else {
-
-                return "Email already exists";
-            }
+            } 
+            
+            return "Invalid Details";
+            
+      
         }
         return $this->render('signup', ['model' => $model]);
     }
      
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
+ 
   
-    public function actionAbout()
+    public function actionDashboard()
     {
         if (! isset(Yii::$app->session['username'])) {
             return $this->redirect("error");
         }
+        if(Yii::$app->session['role'] != 'admin') { 
+          return $this->redirect("/zoo/site/index");
+        }
         $userCount = Users::find()->where(['active' => '1'])->count();
         $zooCount = Zoo::find()->where(['active' => '1'])->count();
         $animalCount = Animals::find()->where(['active' => '1'])->count();
-        return $this->render('about', ['userCount' => $userCount, 'animalCount' => $animalCount, 'zooCount' => $zooCount]);
+        return $this->render('dashboard', ['userCount' => $userCount, 'animalCount' => $animalCount, 'zooCount' => $zooCount]);
+    }
+    public function actionStaffLogin() { 
+
+        $model = new Users();
+        if($this->request->isPost) { 
+            print_r($this->request->post());
+            return "hi";
+        }
+        return $this->render('stafflogin', ['model' => $model]);
+    }
+    public function actionAbout() { 
+        return $this->render('about');
     }
 }

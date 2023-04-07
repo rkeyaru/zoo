@@ -8,9 +8,7 @@ use yii\helpers\Html;
 
  
 $form = ActiveForm::begin(["id" => 'useradd']);?>
-<h2 class="mt-3 text-center dispaly-3">
-    Add User
-</h2>
+
 <?= $form->field($model, "firstName"); ?>
 <?= $form->field($model, "lastName"); ?>
 <?= $form->field($model, "email"); ?>

@@ -9,8 +9,9 @@ $form = ActiveForm::begin(['id' => 'login']);
  
   <?= $form->field($model, "email"); ?>
   <?= $form->field($model, "password")->passwordInput(); ?>
+  <?= $form->field($model, "role")->dropDownList(['admin' =>  'admin','sadmin' => 'super admin']); ?>
   <div class="form-group">
-      <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button','onclick' => "authUser()"]) ?>
+      <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button','onclick' => 'authStaff()']) ?>
   </div>
 
   <?php ActiveForm::end();

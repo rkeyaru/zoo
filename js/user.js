@@ -50,6 +50,7 @@ function addUser() {
 }
 
 function showUserCreate() {
+  $(".modal-title").html("Add User");
   $.ajax({
     type: "GET",
     url: "/zoo/user/create",
@@ -59,8 +60,9 @@ function showUserCreate() {
     },
   });
 }
-
+// will show modal for editing user 
 function editUser(id) {
+  $(".modal-title").html("Edit User");
   $.ajax({
     type: "GET",
     data: {
@@ -74,18 +76,29 @@ function editUser(id) {
     },
   });
 }
-
+//will send updated value to database
 function updateUser(id) {
   $("#useredit").submit(function (e) {
     e.preventDefault();
   });
 
-  var form = $("#useredit");
+  var values = $("#useredit").serializeArray();
 
+  
+  if($("#users-password").val().trim() == "") { 
+
+    return false;
+  } 
+
+  for(val of values.slice(1,values.length)) { 
+    if(val.value.trim() == "") { 
+      return false;
+    }
+  }
   $.ajax({
     type: "POST",
     url: "/zoo/user/edit?id=" + id,
-    data: form.serialize(), // serializes the form's elements.
+    data: values, // serializes the form's elements.
     success: function (data) {
       alert(data); // show response from the php script.
       showUsers();

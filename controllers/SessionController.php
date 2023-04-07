@@ -20,22 +20,21 @@ class SessionController extends Controller
     }
     return $this->redirect("/zoo/site/error");
   }
-  public function SetSession($username) { 
-    $session  = Yii::$app->session;
-    $session['username'] = $username;
-    echo "Session set to " . $session['username'];
-  }
+ 
   public function DestroySession() { 
     $session = Yii::$app->session;
     $session->remove('username');
+    $session->remove('role');
     $session->destroy();
     
  
   } 
   public function GetSession() { 
    $session = Yii::$app->session;
-    if(Yii::$app->session->get('username')) { 
+    if($session->get('username')) {
+      if($session->get('role') == 'admin') {
         return true;
+      }
     }
   return false;
     // print_r($session);

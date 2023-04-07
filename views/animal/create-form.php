@@ -14,9 +14,7 @@ $form = ActiveForm::begin(["id" => 'animaladd']);
 
 
 ?>
-<h2 class="mt-3 text-center dispaly-3">
-    Add Animal
-</h2>
+ 
 <?= $form->field($model, "name"); ?>
 <?= 
 

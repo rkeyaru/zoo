@@ -11,18 +11,13 @@ use Yii;
 
 class ZooController extends SessionController
 {
-    public function init()
-    {
-        parent::init();
-    }
-
-
-
+  
     public function actionIndex()
     {
-        if (!isset(Yii::$app->session['username'])) {
+        if (! parent::GetSession()) {
             return $this->redirect('/zoo/site/error');
         }
+        
         $array = Zoo::find()->where(['active' => '1'])->all();
 
         return $this->renderAjax('index', ['array' => $array]);
@@ -55,7 +50,7 @@ class ZooController extends SessionController
         }
 
 
-        return $this->renderAjax('_form', ["model" => $model]);
+        return $this->renderAjax('create-form', ["model" => $model]);
     }
 
     public function actionEdit($id)
@@ -72,6 +67,6 @@ class ZooController extends SessionController
 
 
 
-        return $this->renderAjax('_editform', ['model' => $model]);
+        return $this->renderAjax('edit-form', ['model' => $model]);
     }
 }

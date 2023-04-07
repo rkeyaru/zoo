@@ -35,23 +35,35 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <?php
 
         NavBar::begin([
-            'brandLabel' => "Zoosite",
+            'brandLabel' => "<i>ZooSite</i>",
             'brandUrl' => Yii::$app->homeUrl,
             'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
         ]);
         $session = Yii::$app->session;
         $username = $session['username'];
-        $val = isset($username) ?  [
+        $role =    $session['role'];
+        if (isset($username)) {
+            if ($role == 'admin') {
+                $val = [
+                    ['label' => 'Dashboard',     'url' => ['/site/dashboard']],
+                    ['label' => $username],
+                    ['label' => 'Logout', 'url' => ['/site/logout']],
+                ];
+            } else {
+                $val = [
+                    ['label' => $username],
+                    ['label' => 'Logout', 'url' => ['/site/logout']],
+                ];
+            }
+        } else {
+            $val  = [
 
-            ['label' => 'Dashboard',     'url' => ['/site/about']],
-            ['label' => $username],
-            ['label' => 'Logout', 'url' => ['/site/logout']],
-
-        ] : [
-
-            ['label' => 'Sign up', 'url' => ['/site/signup']],
-            ['label' => 'Login', 'url' => ['/site/login']],
-        ];
+                ['label' => 'Sign up', 'url' => ['/site/signup']],
+                ['label' => 'Login', 'url' => ['/site/login']],
+              
+            ];
+        }
+        
 
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav ms-auto'],
@@ -76,7 +88,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <footer id="footer" class="mt-auto py-3 bg-light">
         <div class="container">
             <div class="row text-muted">
-                <div class="col-md-6 text-center text-md-start">&copy;<i> Zoosite</i> <?= date('Y') ?></div>
+                <div class="col-md-6 text-center text-md-start">&copy;<i> ZooSite</i> <?= date('Y') ?></div>
                 <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
             </div>
         </div>

@@ -19,7 +19,7 @@ $array = $query->select("a.id as aid,a.name as aname,a.s_name,a.gender  ,z.name 
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header  bg-dark">
-                <h5 class="modal-title  text-light" id="exampleModalLabel">Add User</h5>
+                <h5 class="modal-title  text-light" id="exampleModalLabel">Add Animal</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

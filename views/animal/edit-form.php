@@ -10,7 +10,7 @@ $form = ActiveForm::begin(['id' => 'animaledit']);
 
 $items = ArrayHelper::map($zoos, 'id', 'name');
 ?>
-<h2 class="text-center">Edit Animal</h2>
+ 
 
 <?= $form->field($model,"name") ?>
 <?= 

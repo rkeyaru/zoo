@@ -47,6 +47,7 @@ function addAnimal() {
   });
 }
 function showAnimalCreate() {
+  $('.modal-title').html("Add Animal");
   $.ajax({
     type: "GET",
     url: "/zoo/animal/create",
@@ -58,6 +59,7 @@ function showAnimalCreate() {
 }
 
 function editAnimal(id) {
+  $('.modal-title').html("Edit Animal");
   $.ajax({
     type: "GET",
     data: {
