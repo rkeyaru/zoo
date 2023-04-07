@@ -52,7 +52,7 @@
     <div class="row row-cols-1 row-cols-md-3 justify-content-center">
         <div class="col mb-3">
             <div class="dashboard1  p-5 text-center">
-                <i class="fa-regular fa-roller-coaster fa-3x"></i>
+                
                 <h1 class="text-light" id="zooCount">Zoo count:<?= $zooCount ?> </h1>
                 <button onclick="showZoos()" id="zoo" class="mt-2 btn btn-dark">Show Zoos</button>
             </div>

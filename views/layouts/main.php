@@ -89,7 +89,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <div class="container">
             <div class="row text-muted">
                 <div class="col-md-6 text-center text-md-start">&copy;<i> ZooSite</i> <?= date('Y') ?></div>
-                <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
+                <div class="col-md-6 text-center text-md-end"><a href="#" class="btn btn-primary btn-rounded-pill">  <i class="fa-solid fa-arrow-up"></i></a> </div>
             </div>
         </div>
     </footer>
