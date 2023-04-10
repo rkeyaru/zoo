@@ -24,12 +24,14 @@ class AppAsset extends AssetBundle
         'css/style.css',
         'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+        'https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css'
     ];
     public $js = [
         'js/main.js',
         'js/user.js',
         'js/animal.js',
         'js/zoo.js',
+        'https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -6,6 +6,7 @@ function showZoos() {
     dataType: "html",
     success: function (response) {
       $("#data").html(response);
+      let table = new DataTable('#zoo-data');
       getZooCount();
     },
   });

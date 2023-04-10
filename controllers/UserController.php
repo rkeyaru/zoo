@@ -9,20 +9,22 @@ use yii\db\Query;
 
 class UserController extends SessionController
 {
-    // public function beforeAction($action)
-    // {
-
-    //     if(parent::GetSession()) { 
-    //         return true;
-    //      }
-    //      return $this->redirect("site/index");
-
-    // }
-    public function init()
+    public function beforeAction($action)
     {
-        parent::init();
-       
+
+        if(parent::GetSession()) {
+            if($this->request->isAjax) {
+            return true;
+            }
+         }
+         return $this->redirect("site/login");
+
     }
+    // public function init()
+    // {
+    //     parent::init();
+       
+    // }
     public function actionIndex()
     {
 

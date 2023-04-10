@@ -34,7 +34,7 @@ $this->registerJsFile("@web/js/main.js");
 
  
 
-<table class="table text-center table-bordered ">
+<table class="table text-center table-bordered" id="user-data">
     <thead>
         <tr>
             <th>

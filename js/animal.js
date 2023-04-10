@@ -5,6 +5,7 @@ function showAnimals() {
     dataType: "html",
     success: function (response) {
       $("#data").html(response);
+      let table = new DataTable('#animal-data');
       getAnimalCount();
     },
   });

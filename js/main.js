@@ -3,25 +3,31 @@ function signUp() {
     e.preventDefault();
   });
 
-  values = $("#signup").serializeArray();
-
-  for (i of values.slice(1)) {
-    if (i.name != "contact-button") {
-      console.log(i);
-      if (i.value.trim() == "") {
-        // alert(i.name + " can't be empty");
-        return false;
-      }
+  form = document.getElementById("signup");
+  var formData = new FormData(form);
+  for(i of formData) {
+    if(i[0] != "UploadForm[imageFile]" && i[0] != "contact-button") {
+     if(i[1].trim() == "") {
+      console.log(i[0] + "is empty");
+           return false;
+     }
     }
   }
+ 
+  if ($("#uploadform-imagefile").get(0).files.length === 0) {
+    console.log("Please select a file to upload");
+    return false;
+  }
 
-  if (!isEmail(values[3].value)) {
+  if (!isEmail(formData.get("Users[email]"))) {
     return false;
   }
   $.ajax({
     type: "POST",
     url: "/Project/site/signup",
-    data: values,
+    data: formData,
+    processData: false,
+    contentType: false,
     success: function (data) {
       alert(data);
       // $("#signup")[0].reset();

@@ -13,13 +13,13 @@ use yii\web\Response;
 
 class SessionController extends Controller
 {
-  public function init() { 
-    parent::init();
-    if($this->GetSession()) { 
-        return true;  
-    }
-    return $this->redirect(["/site/login"]);
-  }
+  // public function init() { 
+  //   parent::init();
+  //   if($this->GetSession()) { 
+  //       return true;  
+  //   }
+  //   return $this->redirect(["/site/login"]);
+  // }
  
   public function DestroySession() { 
     $session = Yii::$app->session;

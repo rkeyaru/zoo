@@ -36,7 +36,7 @@ $array = $query->select("a.id as aid,a.name as aname,a.s_name,a.gender  ,z.name 
 </div>
 
 
-<table class="table text-center table-bordered">
+<table class="table text-center table-bordered" id="animal-data">
     <thead>
         <tr>
             <th>

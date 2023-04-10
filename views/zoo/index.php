@@ -35,7 +35,7 @@ use yii\helpers\Html;
 </div>
 
 
-<table class="table text-center table-bordered">
+<table class="table text-center table-bordered" id="zoo-data">
     <thead>
         <tr>
             <th>

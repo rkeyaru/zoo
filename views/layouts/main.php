@@ -31,7 +31,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
 
-    <header id="header">
+    <header id="header" class="">
         <?php
 
         NavBar::begin([
@@ -45,12 +45,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         if (isset($username)) {
             if ($role == 'admin') {
                 $val = [
+
                     ['label' => 'Dashboard',     'url' => ['/site/dashboard']],
                     ['label' => $username],
                     ['label' => 'Logout', 'url' => ['/site/logout']],
                 ];
             } else {
                 $val = [
+                    Html::img("@web/uploads/image25.jpg",['alt' => 'avatar','class' => 'avatar mx-3']),
                     ['label' => $username],
                     ['label' => 'Logout', 'url' => ['/site/logout']],
                 ];
@@ -76,7 +78,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     </header>
 
     <main id="main" class="flex-shrink-0" role="main">
-        <div class="container">
+        <div class="container-fluid p-0">
             <?php if (!empty($this->params['breadcrumbs'])) : ?>
                 <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
             <?php endif ?>

@@ -6,6 +6,7 @@ function showUsers() {
     dataType: "html",
     success: function (response) {
       $("#data").html(response);
+      let table = new DataTable('#user-data');
       getUserCount();
     },
   });

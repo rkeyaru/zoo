@@ -12,10 +12,9 @@ use app\models\ContactForm;
 use app\models\Users;
 use app\models\Zoo;
 use app\models\Animals;
-
-
-
-
+use app\models\UploadForm;
+use app\models\UploadImageForm;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -51,12 +50,12 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
- 
+
     public function actionLogin()
     {
 
         if (isset(Yii::$app->session['username'])) {
-            if(Yii::$app->session['role'] == 'admin') { 
+            if (Yii::$app->session['role'] == 'admin') {
                 return $this->redirect("dashboard");
             }
             return $this->redirect("index");
@@ -66,8 +65,8 @@ class SiteController extends Controller
         if ($this->request->isPost) {
 
             $user  = $this->request->post('Users');
-           
-           
+
+
             $id = Users::findOne(['email' => $user['email']]);
 
 
@@ -75,21 +74,20 @@ class SiteController extends Controller
                 return "Wrong email or password.";
             }
 
-       
+
             if ($id->validatePassword($user['password'])) {
-             
+
                 Yii::$app->session['username'] = $user['email'];
                 Yii::$app->session['role']  = $id->role;
                 $this->redirect('dashboard');
-            } 
-            else {
+            } else {
                 return "Wrong Password or email";
             }
         }
         return $this->render("login", ["model" => $model]);
     }
 
-   
+
     public function actionLogout()
     {
 
@@ -98,7 +96,6 @@ class SiteController extends Controller
         $session->remove('role');
         $session->destroy();
         return $this->redirect("index");
-
     }
     public function actionSignup()
     {
@@ -108,57 +105,59 @@ class SiteController extends Controller
         $model = new Users();
         if ($this->request->isPost) {
             $val = $this->request->post();
-            $temp = Users::find()->where(['email' => $val['Users']['email']])->one();
             $model->load($val);
-            $password = $val["Users"]["password"];
-            foreach($val['Users'] as $i) { 
-                if(trim($i) == "") {
-                return "Fill all entities";
+            if (Users::findOne(['email' => $val["Users"]['email']])) {
+                return "Email already exists";
+            }
+            $hash = Yii::$app->getSecurity()->generatePasswordHash($val["Users"]['password']);
+            $model->save(); 
+            if ($model->validate()) {
+                $model->password = $hash;
+                
+              
+                $model1  = new UploadForm();
+                $model1->imageFile = UploadedFile::getInstance($model1, "imageFile");
+                if ($model1->upload("image" . $model->userId)) {
+                    print_r("user id is: " . $model->userId);
+                    $model->image = "image" .$model->userId . ".".$model1->imageFile->extension;
+                    $model->save();
+                    return "User registered successfully";
                 }
             }
-            $hash = Yii::$app->getSecurity()->generatePasswordHash($password);
-            $model->password = $hash;
-            if($temp) { 
-               return "Email already exists" ;
-            }
-            if ($model->validate()) {
-                $model->save();
-
-                return "User registered successfully";
-            } 
-            
-            return "Invalid Details";
-            
-      
+            print_r($model->getErrors());
+            print_r($model1->getErrors());
+            return "User not registered successfully";
         }
         return $this->render('signup', ['model' => $model]);
     }
-     
- 
-  
+
+
+
     public function actionDashboard()
     {
-        if (! isset(Yii::$app->session['username'])) {
+        if (!isset(Yii::$app->session['username'])) {
             return $this->redirect("/Project/site/login");
         }
-        if(Yii::$app->session['role'] != 'admin') { 
-          return $this->redirect("/Project/site/index");
+        if (Yii::$app->session['role'] != 'admin') {
+            return $this->redirect("/Project/site/index");
         }
         $userCount = Users::find()->where(['active' => '1'])->count();
         $zooCount = Zoo::find()->where(['active' => '1'])->count();
         $animalCount = Animals::find()->where(['active' => '1'])->count();
         return $this->render('dashboard', ['userCount' => $userCount, 'animalCount' => $animalCount, 'zooCount' => $zooCount]);
     }
-    public function actionStaffLogin() { 
+    public function actionStaffLogin()
+    {
 
         $model = new Users();
-        if($this->request->isPost) { 
+        if ($this->request->isPost) {
             print_r($this->request->post());
             return "hi";
         }
         return $this->render('stafflogin', ['model' => $model]);
     }
-    public function actionAbout() { 
+    public function actionAbout()
+    {
         return $this->render('about');
     }
 }
