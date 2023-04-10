@@ -18,6 +18,7 @@
   <?= $form->field($model, "lastName"); ?>
   <?= $form->field($model, "email"); ?>
   <?= $form->field($model, "password")->passwordInput(); ?>
+  <?= $form->field($model,"image")->fileInput(); ?>
   <div class="form-group">
     <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'onclick' => 'signUp()']) ?>
   </div>
