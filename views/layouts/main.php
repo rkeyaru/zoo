@@ -42,17 +42,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         $session = Yii::$app->session;
         $username = $session['username'];
         $role =    $session['role'];
+        $image = $session['image'];
         if (isset($username)) {
             if ($role == 'admin') {
                 $val = [
 
                     ['label' => 'Dashboard',     'url' => ['/site/dashboard']],
+                    Html::img("@web/uploads/".$image,['alt' => 'avatar','class' => 'avatar mx-3']),
                     ['label' => $username],
                     ['label' => 'Logout', 'url' => ['/site/logout']],
                 ];
             } else {
                 $val = [
-                    Html::img("@web/uploads/image25.jpg",['alt' => 'avatar','class' => 'avatar mx-3']),
+                    Html::img("@web/uploads/".$image,['alt' => 'avatar','class' => 'avatar mx-3']),
                     ['label' => $username],
                     ['label' => 'Logout', 'url' => ['/site/logout']],
                 ];

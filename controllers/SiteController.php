@@ -79,6 +79,8 @@ class SiteController extends Controller
 
                 Yii::$app->session['username'] = $user['email'];
                 Yii::$app->session['role']  = $id->role;
+                Yii::$app->session['password'] = $user['password'];
+                Yii::$app->session['image'] = $id->image;
                 $this->redirect('dashboard');
             } else {
                 return "Wrong Password or email";
@@ -94,6 +96,9 @@ class SiteController extends Controller
         $session = Yii::$app->session;
         $session->remove('username');
         $session->remove('role');
+        $session->remove('password');
+        $session->remove('image');
+        
         $session->destroy();
         return $this->redirect("index");
     }

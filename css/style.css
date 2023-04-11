@@ -35,8 +35,8 @@
     padding-top: 100px;;
     margin-top: 250px;
 }
-.temp { 
+.curve-image { 
     background-image: url("../img/curve1.jpg");
     width: 100%;
-    /* height: auto; */
+    height: 200px; 
 }
